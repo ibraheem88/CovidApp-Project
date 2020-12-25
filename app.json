@@ -1,0 +1,12 @@
+{
+  "name": "CovidApp",
+  "displayName": "CovidApp",
+  "expo": {
+    "name": "CovidApp",
+    "slug": "CovidApp",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
