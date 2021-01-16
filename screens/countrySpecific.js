@@ -42,7 +42,8 @@ export default function main ({navigation}) {
     }
 
     useEffect(() => {
-      getState();
+      if(index!=undefined){
+      getState();}
     }, []);
     
     const style=(item,index)=>{
@@ -71,7 +72,7 @@ export default function main ({navigation}) {
         <SafeAreaView>{loading ? (<ActivityIndicator size={'large'} color="#90EE90" paddingTop={300}/>) : (
           <FlatList 
           data={name}
-          keyExtractor={ (item)=> index.toString()}
+          keyExtractor={ (index)=> index.toString()}
           onpress={()=>navigation.navigate('')}
           renderItem={({item,index})=>(
           <View style={{marginBottom: 60}}>

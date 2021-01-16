@@ -59,7 +59,7 @@ useEffect(() => {
           keyExtractor={ (item,index)=> index.toString()}
           renderItem={({item,index})=>(
             <View style={{flexDirection: "row"}}>
-            <TouchableOpacity onPress={()=>navigation.navigate('favouriteSpecific',{item})} style={styles.list}>
+            <TouchableOpacity onPress={()=>navigation.navigate('specific',{item})} style={styles.list}>
                 <Text style={styles.text}>{item}</Text>
             </TouchableOpacity>
             </View>
