@@ -29,7 +29,7 @@ export default function main ({navigation}) {
           keyExtractor={ (item,index)=> index.toString()}
           renderItem={({item,index})=>(
             <View style={{flexDirection: "row"}}>
-            <TouchableOpacity onPress={()=>navigation.navigate('specific',{item,index})}>
+            <TouchableOpacity onPress={()=>navigation.navigate('specific',{item,index})} style={styles.list}>
                 <Text style={styles.text}>{item}</Text>
             </TouchableOpacity> 
             </View>
@@ -60,7 +60,7 @@ export default function main ({navigation}) {
       marginTop: 30,
       fontSize: 31,
       fontWeight: "bold",
-      color: "#90EE90"
+      color: "black"
     },
     button:{
       margin: 30,
@@ -82,4 +82,14 @@ export default function main ({navigation}) {
       paddingLeft: 10,
       paddingTop: 40,
     },
+    list: {
+      backgroundColor: "#90EE90",
+      margin: 10,
+      opacity:0.8,
+      paddingBottom: 15,
+      paddingTop: 0,
+      paddingRight: 10,
+      width:"80%",
+      borderRadius: 7,
+    }
   });

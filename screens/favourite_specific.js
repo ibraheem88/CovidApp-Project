@@ -1,14 +1,17 @@
 import React, { useState,useEffect } from 'react';
-import { ActivityIndicator } from 'react-native';
-import { Text, View, StyleSheet,TextInput,TouchableOpacity,ImageBackground,SafeAreaView,FlatList} from 'react-native';
+import {MaterialIcons} from '@expo/vector-icons';
+import AsyncStorage from '@react-native-community/async-storage';
+import { Text, View, StyleSheet,ActivityIndicator,ImageBackground,SafeAreaView,FlatList} from 'react-native';
 
 
 export default function main ({navigation}) {
-    const url="https://covid-19-data.p.rapidapi.com/totals";
+    const Country=navigation.getParam('item');
+    const url="https://covid-19-data.p.rapidapi.com/country?name="+Country;
     const [loading,setLoading]=useState(true);
     const [name,setName]=useState([]);
 
-    useEffect(()=>{
+
+      useEffect(()=>{
       fetch(url,{
        method: 'GET',
        headers: {
@@ -21,15 +24,19 @@ export default function main ({navigation}) {
       .finally(()=> setLoading(false))
     },[]);
     
+
     return ( 
       <ImageBackground style={styles.container}  source={require("../assets/images/covid.jpg")}>
+        <View style={{flexDirection: "row",justifyContent:"center"}}>
+        <Text style={styles.text1}>{Country}</Text>
+        </View>
         <SafeAreaView>{loading ? (<ActivityIndicator size={'large'} color="#90EE90" paddingTop={300}/>) : (
           <FlatList 
           data={name}
-          keyExtractor={ (item,index)=> index.toString()}
+          keyExtractor={ (index)=> index.toString()}
           onpress={()=>navigation.navigate('')}
           renderItem={({item,index})=>(
-          <View>
+          <View style={{marginBottom: 60}}>
           <View style={{flexDirection:"row"},styles.list}>
             <Text style={styles.text}>Confirmed:</Text>  
             <Text style={styles.text}>{item.confirmed}</Text>
@@ -45,11 +52,11 @@ export default function main ({navigation}) {
           <View style={{flexDirection:"row"},styles.list}>
             <Text style={styles.text}>Deaths:</Text>
             <Text style={styles.text}>{item.deaths}</Text>
-          </View >
+          </View>
           <View style={{flexDirection:"row"},styles.list}>
             <Text style={styles.text1}>Last Updated:</Text>
             <Text style={styles.text1}>{item.lastUpdate}</Text>
-            </View >
+          </View>
           </View>
           )}
           />
@@ -88,7 +95,7 @@ export default function main ({navigation}) {
       alignItems: "center",
       justifyContent:"center",
       alignSelf: "center",
-      padding:20,
+      paddingLeft: 10,
       paddingTop: 0,
     },
     button:{

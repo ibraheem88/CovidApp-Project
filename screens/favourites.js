@@ -8,6 +8,7 @@ const [favourites,setFavourites]=useState([])
 const list=navigation.getParam('newList');
 const index=navigation.getParam('index');
 
+
 const getData = async () =>{
   const value= await AsyncStorage.getItem('list');
   if(value!==null){
@@ -17,8 +18,13 @@ const getData = async () =>{
 }
 
 const clearAll = async() =>{
-  await AsyncStorage.setItem('list',JSON.stringify([]));
-  getData();
+  try{
+      await AsyncStorage.clear();
+      }
+  catch(error){
+        alert(error)
+      }
+  await AsyncStorage.setItem('list',JSON.stringify([]));    
 
 }
 
@@ -53,7 +59,7 @@ useEffect(() => {
           keyExtractor={ (item,index)=> index.toString()}
           renderItem={({item,index})=>(
             <View style={{flexDirection: "row"}}>
-            <TouchableOpacity onPress={()=>navigation.navigate('specific',{item})}>
+            <TouchableOpacity onPress={()=>navigation.navigate('favouriteSpecific',{item})} style={styles.list}>
                 <Text style={styles.text}>{item}</Text>
             </TouchableOpacity>
             </View>
@@ -76,11 +82,11 @@ useEffect(() => {
       marginTop: 30,
       fontSize: 31,
       fontWeight: "bold",
-      color: "#90EE90"
+      color: "black"
     },
     button:{
       margin: 30,
-      marginBottom: 0,
+      marginBottom: 15,
       width:350,
       height:"10%",
       backgroundColor: "#90EE90",
@@ -99,4 +105,15 @@ useEffect(() => {
     section: {
       paddingLeft: 10,
     },
+    list: {
+      backgroundColor: "#90EE90",
+      margin: 10,
+      opacity:0.8,
+      paddingBottom: 15,
+      paddingTop: 0,
+      paddingRight: 10,
+      marginLeft: 20,
+      width:"80%",
+      borderRadius: 7,
+    }
   });
